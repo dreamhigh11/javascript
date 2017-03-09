@@ -1,0 +1,60 @@
+<html>
+
+
+<head>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.1.min.js"></script>
+<script>
+
+$(document).ready(function(){//这个方法是jquery 里面的
+var a=[3,4,5,6,7];
+$("#button").click(function(){
+var o=a.every(function(item){
+return (item>3);
+});
+alert(o);
+});
+
+$("#button1").click(function(){
+var o=a.some(function(item){
+return (item>3);
+});
+alert(o);
+});
+
+$("#button2").click(function(){
+var o=a.filter(function(item){
+return (item>3);
+});
+alert(o);
+});
+
+$("#button3").click(function(){
+var o=a.map(function(item){
+return item+3;
+});
+alert(o);
+});
+
+$("#button4").click(function(){
+var o=a.forEach(function(item){//运行函数但无返回值
+return item*3;
+});
+alert(o);
+});
+
+});
+
+</script>
+</head>
+<body>
+
+<p class="result"></p>
+<button id="button">1111</button>
+<button id="button1">2222</button>
+<button id="button2">3333</button>
+<button id="button3">4444</button>
+<button id="button4">5555</button>
+</body>
+
+
+</html>
