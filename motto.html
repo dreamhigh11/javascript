@@ -1,0 +1,146 @@
+
+<html>
+<head>
+<script src="jquery-3.1.1.js"></script>
+<script src="jquery-ui.js"></script>
+  <meta charset="utf-8">
+  <title>Mashape Query</title>
+  <style> 
+  @import url('https://fonts.googleapis.com/css?family=Ranga');
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  vertical-align: baseline;
+}
+
+div {
+  position: relative;
+  z-index: 2;
+}
+
+body {
+  font-family: Ranga;
+  background-color: #333;
+  font-weight:400;
+}
+
+.quotebox {
+  border-radius:3px;
+  text-align: center;
+  width: 450px;
+  padding: 40px, 50px;
+  display: table;
+  background-color: white;
+  margin: 8% auto auto auto;
+  
+}
+.quote-text {
+    padding: 10px;
+    width: 450px;
+      font-size: 2em;
+  }
+
+.author {
+  width: 450px;
+  font-size:1.5em;
+  text-align:right;
+  padding:10px 30px;
+  clear:both;
+}
+.buttons{
+  margin:auto;
+  display:block;
+}
+.button {
+ height:30px;
+      border:none;
+      border-radius:3px;
+      color:#fff;
+      background-color:#333;
+      outline:none;
+      font-size:0.85em;
+      padding: 8px 18px 6px 18px;
+      margin:30px 10px 10px;
+      opacity:1;
+      cursor:pointer;
+      float:right;
+  &:hover{
+    opacity:0.9;
+  }
+}  
+  </style>
+  <script>
+var colors=['#16a085', '#27ae60', '#2c3e50', '#f39c12', '#e74c3c', '#9b59b6', '#FB6964', '#342224', "#472E32", "#BDBB99", "#77B1A9", "#73A857"];
+
+function getQuote(){
+  $.ajax({
+       url: 'https://andruxnet-random-famous-quotes.p.mashape.com/?cat=movies', // The URL to the API
+    type: 'GET', // The HTTP Method, can be GET POST PUT DELETE etc
+    data: {}, // Additional parameters here
+    dataType: 'json',
+    success:function(response){
+      var colorss= Math.floor(Math.random()*colors.length);
+      $("html body ").animate({
+        backgroundColor:colors[colorss],
+        color:colors[colorss]
+      },1000);
+      
+        $(".button").animate({
+        backgroundColor: colors[colorss]
+      }, 1000);
+      currentQuote=response.quote;
+      currentAuthor=response.author;
+      $(".quote-text").animate({opacity:0},500,function(){
+        $(this).animate({opacity:1},500);
+        $("#text").text(currentQuote);
+      });
+      $(".author").animate({opacity:0},500,function(){
+        $(this).animate({opacity:1},500);
+        $("#authors").text(currentAuthor);
+      });
+   },
+    error: function(err) { alert(err); },
+    beforeSend: function(xhr) {
+    xhr.setRequestHeader("X-Mashape-Authorization", "0WFnCpq4TEmshczq4vXBNEbxx3Pxp1v89qNjsn21FY3rxSIK1J"); // Enter here your Mashape key
+	
+    }
+    
+    
+  });
+    
+}
+$(document).ready(function(){
+  getQuote();
+  $("#change").on('click',getQuote);
+});
+
+</script>
+</head>
+<body>
+
+
+  <div class="quotebox">
+    <div class="quote-text"><i class="fa fa-quote-left"></i>
+      <span id="text">aaaaaaa</span>
+    </div>
+    <div class="author">
+      --<span id="authors">bbbb</span>
+    </div>
+    
+
+  <div class="buttons">
+    <button class="button" id="change">change</button>
+  </div>
+  </div> 
+
+</body>
+</html>
+
+
+
+
+
+
+
+
